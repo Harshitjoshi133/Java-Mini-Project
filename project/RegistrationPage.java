@@ -2,6 +2,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
 
+import Apology.apology;
+
 public class RegistrationPage extends Frame implements ActionListener {
     private TextField usernameField;
     private TextField passwordField;
