@@ -3,7 +3,11 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.*;
+
 import javax.imageio.ImageIO;
+
+import Apology.apology;
 
 
 public class LoginPage extends Frame implements ActionListener {
@@ -85,12 +89,53 @@ public class LoginPage extends Frame implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == loginButton) {
-            // Handle login logic here (e.g., validate username/password)
-            setVisible(false); // Hide the login window
+            String username = usernameField.getText();
+            String password = passwordField.getText();
+            if(username.isEmpty() || password.isEmpty()){
+                new apology("Cannot Leave these positions empty");
+                return;
+            }
+            
+            try {
+                Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/javaminiproject", "root", "Harshit@99");
+                //System.out.println(username);
+                //System.out.println(password);
+                // Checking Username and password
+                PreparedStatement checkStatement = connection.prepareStatement("SELECT * FROM users WHERE name=?");
+                checkStatement.setString(1, username);
+                ResultSet resultSet = checkStatement.executeQuery();
+                String p="";
+                if (resultSet.next()) {
+                    System.out.println(resultSet.getString("password"));
+                    //System.out.println(resultSet.getString("name"));
+                    p =resultSet.getString("password");
+                    
+                    }
+                if(p.equals(password)){
+                    System.out.print("hello im here");
+                    new MovieSelection();
+                    setVisible(false);
+                }   
+                    
+                
+                 else{
+                     new apology("Incorrect Username or Password");
+                }
 
+                    // Hide the login window
+
+
+                //insertStatement.close();
+                connection.close();
+            } catch (SQLException ex) {
+                new apology("Error: " + ex.getMessage());
+            }
+        }
+
+
+  
             // Example: Open a new window (MovieSelection)
-            new MovieSelection();
-        } else if (e.getSource() == registerButton) {
+                    else if (e.getSource() == registerButton) {
             // Handle registration button click
             setVisible(false); // Hide the login window
 
@@ -98,6 +143,7 @@ public class LoginPage extends Frame implements ActionListener {
             new RegistrationPage();
         }
     }
+
     @Override
     public void paint(Graphics g) {
         super.paint(g);
