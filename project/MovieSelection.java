@@ -44,8 +44,4 @@ public class MovieSelection extends Frame implements ActionListener{
             System.out.println(e.getSource());
         }
     }
-
-    public static void main(String[] args) {
-        new MovieSelection();
-    }
 }

@@ -59,15 +59,10 @@ public class SeatSelectionFrame extends Frame implements ActionListener {
             System.out.println("Seat deselected.");
         } else {
             // Select the clicked button
-            clickedButton.setBackground(Color.CYAN); // Highlight selected seat
+            clickedButton.setBackground(Color.GREEN); // Highlight selected seat
             selectedButton = clickedButton;
             String seatNumber = clickedButton.getLabel();
             System.out.println("Selected Seat: " + seatNumber);
         }
-    }
-
-    public static void main(String[] args) {
-        // Create and show the SeatSelectionFrame
-        new SeatSelectionFrame();
     }
 }

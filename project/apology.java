@@ -1,13 +1,14 @@
 import java.awt.*;
 import java.awt.event.*;
-
-public class ConfirmationPage extends Frame {
-    public ConfirmationPage(){
+ 
+public class apology extends Frame {
+    //private String s;
+    public apology(String str){
         setSize(300,100);
         setLayout(new GridLayout(3, 1)); 
         TextField t=new TextField();
         
-        t.setText("Seat is Confirmed");
+        t.setText(str);
         add(t);
         setLocationRelativeTo(null);
         setVisible(true);
@@ -16,5 +17,8 @@ public class ConfirmationPage extends Frame {
                 dispose(); // Close the window
             }
         });
+    }
+    public static void main(String[]args){
+        new apology("hello");
     }
 }
