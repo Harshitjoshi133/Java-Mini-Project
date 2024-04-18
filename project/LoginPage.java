@@ -15,7 +15,6 @@ public class LoginPage extends Frame implements ActionListener {
     private TextField passwordField;
     private Button loginButton;
     private Button registerButton;
-    //private BufferedImage image;
     private BufferedImage backgroundImage;
     public LoginPage() {
         setTitle("Login Page");
@@ -119,7 +118,7 @@ public class LoginPage extends Frame implements ActionListener {
                     
                 
                  else{
-                     new apology("Incorrect Username or Password");
+                    new apology("Incorrect Username or Password");
                 }
 
                     // Hide the login window
