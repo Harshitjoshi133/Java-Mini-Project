@@ -25,8 +25,6 @@ public class LoginPage extends Frame implements ActionListener {
             // Load the background image from a URL
             @SuppressWarnings("deprecation")
             URL imageUrl = new URL("https://img.freepik.com/free-photo/copy-space-cinema-equipment_23-2148470220.jpg?t=st=1713460343~exp=1713463943~hmac=c154bce857cb0beee51d853ce72ca5096c744eb994fc53852a273ca87b56d410&w=900");
-            //@SuppressWarnings("deprecation")
-            //URL imageurl = new URL("");
             backgroundImage = ImageIO.read(imageUrl);
         } catch (IOException e) {
             e.printStackTrace();
@@ -97,8 +95,6 @@ public class LoginPage extends Frame implements ActionListener {
             
             try {
                 Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/javaminiproject", "root", "Harshit@99");
-                //System.out.println(username);
-                //System.out.println(password);
                 // Checking Username and password
                 PreparedStatement checkStatement = connection.prepareStatement("SELECT * FROM users WHERE name=?");
                 checkStatement.setString(1, username);
@@ -112,7 +108,7 @@ public class LoginPage extends Frame implements ActionListener {
                     }
                 if(p.equals(password)){
                     System.out.print("hello im here");
-                    new MovieSelection();
+                    new MovieSelection(username);
                     setVisible(false);
                 }   
                     
@@ -126,7 +122,7 @@ public class LoginPage extends Frame implements ActionListener {
 
                 //insertStatement.close();
                 connection.close();
-            } catch (SQLException ex) {
+            } catch (SQLException | IOException ex) {
                 new apology("Error: " + ex.getMessage());
             }
         }
