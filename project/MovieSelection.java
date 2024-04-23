@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
-import javax.sql.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -18,7 +17,7 @@ public class MovieSelection extends Frame implements ActionListener {
     private String url[];
     private String moviename[];
     private Button LogoutButton;
-    private String username;
+    public String username;
     public MovieSelection(String user) throws IOException {
         //Properties of the App
         username=user;
@@ -132,14 +131,5 @@ public class MovieSelection extends Frame implements ActionListener {
         }
     
     }
-
-    public static void main(String[] args) {
-        try {
-            new MovieSelection("Noob");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 
 }

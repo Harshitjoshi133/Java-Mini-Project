@@ -8,8 +8,8 @@ public class SeatSelectionFrame extends Frame implements ActionListener {
     private Button selectedButton;
     private Button bookButton;
 
-    public SeatSelectionFrame(String s) {
-        setTitle(s);
+    public SeatSelectionFrame(String s,String t,Button b) {
+        setTitle(s+" "+t+" "+" "+b.getLabel());
         setSize(400, 400);
         setBackground(Color.WHITE);
         setLayout(new GridLayout(5, 5, 5, 5));
