@@ -27,9 +27,9 @@ public class TheatreSelection extends Frame implements ActionListener {
         Label titleLabel = new Label("Theatre Selection");
         titleLabel.setBounds(550, 10, 200, 100);
 
-        Panel panel = new Panel(new FlowLayout());
+        Panel panel = new Panel();
         panel.setBounds(50, 120, 1200, 500);
-
+        panel.setBackground(Color.white);
         LocalTime currentTime = LocalTime.now();
         bookingTimes = new LocalTime[3]; 
         bookingTimes[0]=LocalTime.of(11, 30);
@@ -42,7 +42,7 @@ public class TheatreSelection extends Frame implements ActionListener {
             if (currentTime.isBefore(bookingTimes[i])) {
                 timebutton[i] = new Button(bookingTimes[i].toString());
                 timebutton[i].addActionListener(this);
-                timebutton[i].setBounds(x, y, 100, 20);
+                timebutton[i].setBounds(x, y, 100, 120);
                 x=x+100;
                 y=y+100;
                 panel.add(timebutton[i]);

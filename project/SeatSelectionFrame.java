@@ -11,20 +11,22 @@ public class SeatSelectionFrame extends Frame implements ActionListener {
     private Button[][] seatButtons;
     private Button selectedButton;
     private Button bookButton;
-    private String username;
-    private String moviename;
-    private String booktime;
-    private String currdate;
+    private String name;
+    private String movie;
+    private String time;
+    private String date;
     private String tableName;
-    LocalDateTime bookingTime;
+    private LocalDateTime bookingTime;
     public SeatSelectionFrame(String user,String movie,String time,String date) {
-        username=user;
-        moviename=movie;
-        booktime=time;
-        currdate=date;
-        tableName=movie+"_"+date+"_"+time;
+        this.name=user;
+        this.movie=movie;
+        this.time=time;
+        this.date=date;
+
+        String temptableName=movie+"_"+date+"_"+time;
+        this.tableName=formatTableName(temptableName);
         bookingTime=LocalDateTime.now();
-        setTitle(username+" "+moviename+" "+" "+booktime+" "+currdate);
+        setTitle(name+" "+movie+" "+" "+time+" "+date);
         setSize(1295, 687);
         setBackground(Color.WHITE);
         setLayout(new GridLayout(5, 5, 5, 5));
@@ -74,6 +76,7 @@ public class SeatSelectionFrame extends Frame implements ActionListener {
             String createTableSQL = "CREATE TABLE IF NOT EXISTS " + tableName + " ("
                                     + "SeatNo INT, "
                                     + "Username VARCHAR(255), "
+                                    + "Moviename VARCHAR(255),"
                                     + "BookingTime TIMESTAMP, "
                                     + "PaymentLink TEXT)";
             PreparedStatement createStatement = connection.prepareStatement(createTableSQL);
@@ -100,19 +103,37 @@ public class SeatSelectionFrame extends Frame implements ActionListener {
             return false;
         }
     }
+    public static String formatTableName(String tableName) {
+        // Remove leading and trailing spaces
+        tableName = tableName.trim();
+        
+        // Replace invalid characters with underscores
+        tableName = tableName.replaceAll("[^a-zA-Z0-9_]", "_");
+        
+        // Ensure the table name starts with a letter
+        if (!Character.isLetter(tableName.charAt(0))) {
+            // If the first character is not a letter, prepend an underscore
+            tableName = "_" + tableName;
+        }
+        
+        // Limit length of table name (optional)
+        tableName = tableName.substring(0, Math.min(tableName.length(), 64)); // Limit to 64 characters
+        
+        return tableName;
+    }
     int seat=0;
     public void actionPerformed(ActionEvent e) {
         String seatNumber="";
         Button clickedButton = (Button) e.getSource();
         if(e.getSource()==bookButton){
-            String paymentlink="kar";
+            //String paymentlink="kar";
             System.out.println(seat);
             if(seat!=0){
             
            // int seat=Integer.parseInt(seatNumber);   
             setVisible(false);
-            new paymentframe(username,bookingTime,moviename,seat,paymentlink,tableName);
-            }
+            new paymentframe(name,bookingTime,movie,seat,tableName,time,date);
+        }
             else{
                 new apology("Please select seat");
             }

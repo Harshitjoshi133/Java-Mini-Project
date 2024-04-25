@@ -13,16 +13,20 @@ public class paymentframe extends Frame implements ActionListener {
     private String moviename;
     private LocalDateTime bookingTime;
     private int seat;
+    private String time;
+    private String date;
     private String tableName; // Specify your table name here
     private String paymentLink;
     private BufferedImage backgroundImage;
     private Button bookbtn;
-    public paymentframe(String user, LocalDateTime curr, String movie, int Seat, String payment,String tablename) {
+    public paymentframe(String user, LocalDateTime curr, String movie, int Seat,String tablename,String time,String date) {
         this.username = user;
         this.tableName=tablename;
         this.bookingTime = curr;
         this.moviename = movie;
         this.seat=Seat;
+        this.date=date;
+        this.time=time;
         setTitle(user);
         setSize(400, 400);
         setLayout(null);
@@ -31,8 +35,8 @@ public class paymentframe extends Frame implements ActionListener {
         bookbtn.addActionListener(this); // Register ActionListener for the button
         bookbtn.setBounds(140, 300,120,20);
         add(bookbtn);
-        Label lb=new Label(String.valueOf(Seat));
-        lb.setBounds(70, 20, 100, 100);
+        Label lb=new Label("Pay for confirmation Seat "+String.valueOf(Seat));
+        lb.setBounds(70, 20, 200, 100);
         add(lb);
         
         try {
@@ -69,16 +73,17 @@ public class paymentframe extends Frame implements ActionListener {
 
 
             // Insert records into the table
-            String insertSQL = "INSERT INTO " + tableName + " (SeatNo, Username, BookingTime, PaymentLink) VALUES (?, ?, ?, ?)";
+            String insertSQL = "INSERT INTO " + tableName + " (SeatNo, Username, Moviename,BookingTime, PaymentLink) VALUES (?, ?,?, ?, ?)";
             PreparedStatement insertStatement = connection.prepareStatement(insertSQL);
             insertStatement.setInt(1, seat); // Example SeatNo
             insertStatement.setString(2, username);
-            insertStatement.setTimestamp(3, Timestamp.valueOf(bookingTime));
-            insertStatement.setString(4, paymentLink);
+            insertStatement.setString(3, insertSQL);
+            insertStatement.setTimestamp(4, Timestamp.valueOf(bookingTime));
+            insertStatement.setString(5, paymentLink);
             insertStatement.executeUpdate();
 
             connection.close();
-            new ConfirmationPage();
+            new ConfirmationPage(username,moviename,tableName,date,time,seat);
         } catch (SQLException ex) {
             new apology("Error: " + ex.getMessage());
         }
