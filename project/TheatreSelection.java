@@ -8,7 +8,7 @@ public class TheatreSelection extends Frame implements ActionListener {
     private String movie;
     private LocalTime[] bookingTimes;
     private Button[] timebutton;
-
+    private Button logoutButton;
     public TheatreSelection(String movieName, String userName) {
         user = userName;
         movie=movieName;
@@ -19,7 +19,7 @@ public class TheatreSelection extends Frame implements ActionListener {
         setLayout(null);
 
         // Header for the App
-        Button logoutButton = new Button("Logout");
+        logoutButton = new Button("Logout");
         logoutButton.setBounds(1150, 10, 120, 60);
         logoutButton.setBackground(Color.GRAY);
         // Add ActionListener for LogoutButton here
@@ -32,14 +32,19 @@ public class TheatreSelection extends Frame implements ActionListener {
 
         LocalTime currentTime = LocalTime.now();
         bookingTimes = new LocalTime[3]; 
-        bookingTimes[0]=LocalTime.of(22, 50);
-        bookingTimes[1]=LocalTime.of(22, 40);
-        bookingTimes[2]=LocalTime.of(22, 30);
+        bookingTimes[0]=LocalTime.of(11, 30);
+        bookingTimes[1]=LocalTime.of(16, 30);
+        bookingTimes[2]=LocalTime.of(19, 30);
         timebutton=new Button[3];
+        int x=100;
+        int y=100;
         for (int i=0;i<3;i++) {
             if (currentTime.isBefore(bookingTimes[i])) {
                 timebutton[i] = new Button(bookingTimes[i].toString());
                 timebutton[i].addActionListener(this);
+                timebutton[i].setBounds(x, y, 100, 20);
+                x=x+100;
+                y=y+100;
                 panel.add(timebutton[i]);
             }
         }
@@ -51,7 +56,7 @@ public class TheatreSelection extends Frame implements ActionListener {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                System.exit(0);
+                dispose();
             }
         });
 
@@ -62,8 +67,14 @@ public class TheatreSelection extends Frame implements ActionListener {
         //LocalDateTime book;
         for(Button btn:timebutton){
             if(e.getSource()==btn){
-                new SeatSelectionFrame(user,movie,btn);
+                String time=btn.getLabel();
+                LocalDate currentdate=LocalDate.now();
+                new SeatSelectionFrame(user,movie,time,currentdate.toString());
             }
+        }
+        if(e.getSource()==logoutButton){
+            setVisible(false);
+            new LoginPage();
         }
     }
     public static void main(String[] args) {
