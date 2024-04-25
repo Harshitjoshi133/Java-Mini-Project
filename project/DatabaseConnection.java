@@ -3,9 +3,10 @@ import java.sql.DriverManager;
 //import java.sql.SQLException;
 
 public class DatabaseConnection {
+    static Connection connection=null;
     public static void main(String[] args) {
         try{
-        Connection connection = null;
+        
         
             // Register JDBC driver
             Class.forName("com.mysql.cj.jdbc.Driver");

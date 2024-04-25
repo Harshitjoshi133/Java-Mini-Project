@@ -1,13 +1,13 @@
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+//import java.awt.image.BufferedImage;
+//import java.io.File;
+//import java.io.IOException;
 import java.sql.*;
-import java.time.LocalDateTime;
-import javax.imageio.ImageIO;
+//import java.time.LocalDateTime;
+//import javax.imageio.ImageIO;
 import java.util.*;
-import org.junit.jupiter.api.parallel.ResourceLock;
+//import org.junit.jupiter.api.parallel.ResourceLock;
 
 import Apology.apology;
 
@@ -61,7 +61,6 @@ public class Detailpage extends Frame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
     }    
 
